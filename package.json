@@ -1,0 +1,15 @@
+{
+  "name": "web_crawler",
+  "version": "1.0.0",
+  "description": "SEO tools of your dream",
+  "main": "main.js",
+  "scripts": {
+    "test": "jest",
+    "start": "node main.js"
+  },
+  "author": "macrespo42",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}
