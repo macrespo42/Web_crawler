@@ -25,3 +25,7 @@ test("normalize root url", () => {
   expect(crawler.normalizeURL("https://blog.boot.dev")).toBe("blog.boot.dev");
   expect(crawler.normalizeURL("https://blog.boot.dev/")).toBe("blog.boot.dev");
 });
+
+test("normalize url Capitalize", () => {
+  expect(crawler.normalizeURL("http://BLOG.boot.dev/")).toBe("blog.boot.dev");
+});
