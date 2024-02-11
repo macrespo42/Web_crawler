@@ -23,4 +23,5 @@ test("normalize url http", () => {
 
 test("normalize root url", () => {
   expect(crawler.normalizeURL("https://blog.boot.dev")).toBe("blog.boot.dev");
+  expect(crawler.normalizeURL("https://blog.boot.dev/")).toBe("blog.boot.dev");
 });
