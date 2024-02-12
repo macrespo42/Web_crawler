@@ -1,3 +1,5 @@
+const { JSDOM } = require("jsdom");
+
 module.exports = {
   normalizeURL(url) {
     const urlObject = new URL(url);
@@ -8,5 +10,21 @@ module.exports = {
     }
 
     return normalizedURL;
+  },
+
+  getURLsFromHTML(htmlBody, baseURL) {
+    const urls = [];
+    const dom = new JSDOM(htmlBody);
+    const linksTags = dom.window.document.querySelectorAll("a");
+
+    for (const link of linksTags) {
+      if (link.href.startsWith("http")) {
+        urls.push(link.href);
+      } else {
+        urls.push(baseURL + link.href + "/");
+      }
+    }
+
+    return urls;
   },
 };
