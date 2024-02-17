@@ -47,7 +47,6 @@ async function crawlPage(baseURL, currentURL, pages) {
     pages[normalizedURL] = 1;
   }
 
-  console.log(`Crawling ${currentURL}...`);
   try {
     const response = await fetch(currentURL, {
       method: "GET",
