@@ -27,26 +27,50 @@ function getURLsFromHTML(htmlBody, baseURL) {
   return urls;
 }
 
-async function crawlPage(url) {
+async function crawlPage(baseURL, currentURL, pages) {
+  // if note same domain stop
+  const baseUrlObj = new URL(baseURL);
+  const currentURLObj = new URL(currentURL);
+  if (baseUrlObj.hostname !== currentURLObj.hostname) {
+    return pages;
+  }
+
+  const normalizedURL = normalizeURL(currentURL);
+  if (pages[normalizedURL] > 0) {
+    pages[normalizedURL]++;
+    return pages;
+  }
+
+  if (currentURL === baseURL) {
+    pages[normalizedURL] = 0;
+  } else {
+    pages[normalizedURL] = 1;
+  }
+
+  console.log(`Crawling ${currentURL}...`);
   try {
-    const response = await fetch(url, {
+    const response = await fetch(currentURL, {
       method: "GET",
     });
 
     if (response.status >= 400) {
       console.error(`Error: ${response?.status} ${response?.statusText}`);
-      return;
+      return pages;
     }
 
     if (!response.headers.get("Content-Type").includes("text/html")) {
       console.error("Error: invalid Content-Type");
-      return;
+      return pages;
     }
+    const urls = getURLsFromHTML(await response.text(), baseURL);
 
-    console.log(await response.text());
+    for (let i = 0; i < urls.length; i++) {
+      pages = await crawlPage(baseURL, urls[i], pages);
+    }
   } catch (error) {
-    console.error(await error.message);
+    console.error(error.message);
   }
+  return pages;
 }
 
 module.exports = {
