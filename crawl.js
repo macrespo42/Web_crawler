@@ -28,7 +28,6 @@ function getURLsFromHTML(htmlBody, baseURL) {
 }
 
 async function crawlPage(baseURL, currentURL, pages) {
-  // if note same domain stop
   const baseUrlObj = new URL(baseURL);
   const currentURLObj = new URL(currentURL);
   if (baseUrlObj.hostname !== currentURLObj.hostname) {
@@ -53,12 +52,10 @@ async function crawlPage(baseURL, currentURL, pages) {
     });
 
     if (response.status >= 400) {
-      console.error(`Error: ${response?.status} ${response?.statusText}`);
       return pages;
     }
 
     if (!response.headers.get("Content-Type").includes("text/html")) {
-      console.error("Error: invalid Content-Type");
       return pages;
     }
     const urls = getURLsFromHTML(await response.text(), baseURL);
@@ -67,7 +64,7 @@ async function crawlPage(baseURL, currentURL, pages) {
       pages = await crawlPage(baseURL, urls[i], pages);
     }
   } catch (error) {
-    console.error(error.message);
+    console.error(`${error.message} for url: ${currentURL}`);
   }
   return pages;
 }

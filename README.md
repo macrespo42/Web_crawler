@@ -2,6 +2,14 @@
 
 A little nodejs script who list subdomain of given website and print report about it
 
+![screenshot of the script in action](./screenshots/image.png "web crawler in action")
+
+
+## Requirements
+
+**node >= 18**
+
+
 ## Installation
 
 ```bash
