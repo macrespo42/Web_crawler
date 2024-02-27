@@ -1,8 +1,25 @@
 # The SEO tools of your dream !
 
+A little nodejs script who list subdomain of given website and print report about it
 
-## How to Use
+## Installation
 
-just type `git clone git@github.com:macrespo42/Web_crawler.git`
-cd into Web_crawler then run `npm install` (node >= 18 required)
-then run npm start THESITETOCRAWL and enjoy :)
+```bash
+git clone git@github.com:macrespo42/Web_crawler.git
+cd Web_crawler
+npm install
+```
+
+## Usage
+
+```bash
+npm run start $url_of_the_website_to_crawl$
+```
+
+## Tests
+
+Unit test provided with the project you can run it using:
+
+```bash
+npm run test
+```
